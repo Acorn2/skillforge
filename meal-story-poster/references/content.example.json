@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.1",
+  "brand": {"name": "三人行托管中心", "locationName": null, "locationVerified": false, "siteId": null},
+  "record": {"date": null, "dateVerified": false, "scope": "single-day"},
+  "output": {"templates": ["auto"], "width": 1080, "height": 1440, "format": "png", "fit": "cover"},
+  "assets": [
+    {
+      "id": "ingredient-01", "file": "input/ingredient.jpg", "category": "ingredient", "categoryStatus": "needs-confirmation",
+      "label": null, "labelStatus": "needs-confirmation", "note": null, "noteStatus": "needs-confirmation",
+      "siteId": null, "capturedAt": null, "identifiableChildren": "unknown", "publicUsePermission": "unverified"
+    },
+    {
+      "id": "dish-01", "file": "input/dish.jpg", "category": "finished-dish", "categoryStatus": "needs-confirmation",
+      "label": "汤品", "labelStatus": "needs-confirmation", "note": null, "noteStatus": "needs-confirmation",
+      "siteId": null, "capturedAt": null, "identifiableChildren": "unknown", "publicUsePermission": "unverified"
+    }
+  ],
+  "confirmedLinks": [],
+  "diningScene": {"enabled": false, "assetIds": [], "privacyMode": "prefer-anonymous", "publicUsePermission": "unverified"},
+  "copy": {
+    "tone": "warm-and-factual",
+    "targets": ["wechat_moments", "parent_group", "xiaohongshu", "video_title", "video_caption"],
+    "enableNutritionClaims": false, "allowUnverifiedClaims": false
+  },
+  "approval": {"contentApproved": false, "publicReleaseApproved": false, "approvedBy": null}
+}

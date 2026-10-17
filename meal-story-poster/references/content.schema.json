@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "meal-story-poster content 1.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "assets"],
+  "properties": {
+    "schemaVersion": {"const": "1.1"},
+    "brand": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "name": {"type": "string", "minLength": 1, "maxLength": 40},
+        "locationName": {"type": ["string", "null"], "maxLength": 40},
+        "locationVerified": {"type": "boolean"},
+        "siteId": {"type": ["string", "null"], "maxLength": 80}
+      }
+    },
+    "record": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "date": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+        "dateVerified": {"type": "boolean"},
+        "scope": {"enum": ["single-day", "multi-day", "week"]}
+      }
+    },
+    "output": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "templates": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["auto", "meal-overview", "ingredient-focus", "meal-focus", "dining-scene"]}},
+        "width": {"const": 1080}, "height": {"const": 1440},
+        "format": {"enum": ["png", "jpg"]},
+        "jpegQuality": {"type": "integer", "minimum": 88, "maximum": 92},
+        "fit": {"enum": ["contain", "cover"]},
+        "fontFile": {"type": "string", "maxLength": 1024},
+        "fontFamily": {"type": "string", "maxLength": 100}
+      }
+    },
+    "assets": {"type": "array", "minItems": 1, "maxItems": 30, "items": {"$ref": "#/$defs/asset"}},
+    "confirmedLinks": {
+      "type": "array", "maxItems": 30,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["ingredientId", "dishId", "status", "reviewedBy", "reviewedAt"],
+        "properties": {
+          "ingredientId": {"type": "string"}, "dishId": {"type": "string"},
+          "status": {"enum": ["verified", "needs-confirmation"]},
+          "reviewedBy": {"type": ["string", "null"]}, "reviewedAt": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "diningScene": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "enabled": {"type": "boolean"},
+        "assetIds": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "privacyMode": {"enum": ["prefer-anonymous", "crop-or-blur"]},
+        "publicUsePermission": {"$ref": "#/$defs/permission"},
+        "notes": {"type": "string", "maxLength": 500}
+      }
+    },
+    "copy": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "tone": {"const": "warm-and-factual"},
+        "targets": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["wechat_moments", "parent_group", "xiaohongshu", "video_title", "video_caption"]}},
+        "enableNutritionClaims": {"type": "boolean"}, "allowUnverifiedClaims": {"type": "boolean"},
+        "requestedClaims": {"type": "array", "maxItems": 20, "items": {"type": "string", "maxLength": 300}}
+      }
+    },
+    "approval": {
+      "type": "object", "additionalProperties": false,
+      "properties": {
+        "contentApproved": {"type": "boolean"}, "publicReleaseApproved": {"type": "boolean"},
+        "approvedBy": {"type": ["string", "null"]}
+      }
+    }
+  },
+  "$defs": {
+    "permission": {"enum": ["unverified", "verified", "denied"]},
+    "status": {"enum": ["verified", "needs-confirmation"]},
+    "privacyReview": {
+      "type": "object", "additionalProperties": false,
+      "required": ["reviewedBy", "reviewedAt", "risksChecked", "identifiablePeople", "sensitiveInfo", "subjects"],
+      "properties": {
+        "reviewedBy": {"type": "string", "minLength": 1, "maxLength": 80},
+        "reviewedAt": {"type": "string", "maxLength": 40},
+        "risksChecked": {"type": "boolean"},
+        "identifiablePeople": {"enum": ["yes", "no", "unknown"]},
+        "sensitiveInfo": {"enum": ["yes", "no", "unknown"]},
+        "subjectCount": {"type": "integer", "minimum": 0, "maximum": 100},
+        "subjects": {
+          "type": "array", "maxItems": 100,
+          "items": {
+            "type": "object", "additionalProperties": false,
+            "required": ["subjectId", "isMinor", "permission", "channels", "purpose", "validUntil"],
+            "properties": {
+              "subjectId": {"type": "string", "minLength": 1, "maxLength": 80},
+              "isMinor": {"type": "boolean"},
+              "permission": {"$ref": "#/$defs/permission"},
+              "guardianPermissionVerified": {"type": "boolean"},
+              "channels": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+              "purpose": {"const": "meal-story-publicity"},
+              "validUntil": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"}
+            }
+          }
+        }
+      }
+    },
+    "asset": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "file", "category"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,79}$"},
+        "file": {"type": "string", "minLength": 1, "maxLength": 1024},
+        "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "category": {"enum": ["ingredient", "finished-dish", "dining-scene", "other"]},
+        "categoryStatus": {"$ref": "#/$defs/status"},
+        "label": {"type": ["string", "null"], "maxLength": 120},
+        "labelStatus": {"$ref": "#/$defs/status"},
+        "note": {"type": ["string", "null"], "maxLength": 300},
+        "noteStatus": {"$ref": "#/$defs/status"},
+        "siteId": {"type": ["string", "null"], "maxLength": 80},
+        "capturedAt": {"type": ["string", "null"], "maxLength": 40},
+        "identifiableChildren": {"enum": ["unknown", "yes", "no"]},
+        "publicUsePermission": {"$ref": "#/$defs/permission"},
+        "privacyReview": {"$ref": "#/$defs/privacyReview"},
+        "fit": {"enum": ["contain", "cover"]}, "cropReviewed": {"type": "boolean"},
+        "position": {"enum": ["centre", "north", "northeast", "east", "southeast", "south", "southwest", "west", "northwest"]}
+      }
+    }
+  }
+}

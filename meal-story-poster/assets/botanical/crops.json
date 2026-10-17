@@ -1,0 +1,44 @@
+[
+  {
+    "file": "cucumber.png",
+    "left": 464,
+    "top": 129,
+    "width": 432,
+    "height": 403
+  },
+  {
+    "file": "tomato.png",
+    "left": 13,
+    "top": 141,
+    "width": 443,
+    "height": 398
+  },
+  {
+    "file": "potato.png",
+    "left": 870,
+    "top": 174,
+    "width": 370,
+    "height": 353
+  },
+  {
+    "file": "pig.png",
+    "left": 448,
+    "top": 643,
+    "width": 432,
+    "height": 453
+  },
+  {
+    "file": "soup.png",
+    "left": 863,
+    "top": 643,
+    "width": 375,
+    "height": 448
+  },
+  {
+    "file": "sweet-potato.png",
+    "left": 25,
+    "top": 748,
+    "width": 431,
+    "height": 349
+  }
+]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "餐食图文海报"
+  short_description: "将真实餐食照片排成品牌海报，生成五类文案并检查事实与用餐场景权限"
+  default_prompt: "使用 $meal-story-poster 读取本地餐食照片，按内置绿叶手写风格与参考布局生成海报和五类文案；照片铺满卡片，先确认分类菜名，日期未核实不写今日，自动保存到 Skill outputs，默认只留下中文海报和一份汇总文案，不生成 HTML、隐藏目录或审核报告；只有用户明确要求保留任务时才用 --keep-state。"
