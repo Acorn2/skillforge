@@ -7,7 +7,9 @@
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "demo": "node tests/create-demo.mjs",
-    "check": "node scripts/meal-story-poster.mjs --help"
+    "check": "node scripts/meal-story-poster.mjs --help",
+    "web": "node web/server.mjs",
+    "start": "node web/server.mjs"
   },
   "dependencies": {
     "ajv": "8.20.0",
